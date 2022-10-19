@@ -1,11 +1,10 @@
 // Start our router
 // Import express
-const express = require('express');
+const express = require('express')
 // only the router none of the other app stuff
-const router = express.Router();
+const router = express.Router()
 const dataController = require('./dataController')
 const viewController = require('./viewController')
-
 
 // Routes
 // Index
@@ -22,7 +21,5 @@ router.post('/', dataController.create, viewController.redirectShow)
 router.get('/:id/edit', dataController.show, viewController.edit)
 // Show
 router.get('/:id', dataController.show, viewController.show)
-
-
 
 module.exports = router
