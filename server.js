@@ -7,7 +7,6 @@ const app = express()
 
 // Configure the app (app.set)
 /* Start Config */
-app.use(express.urlencoded({ extended: true })) // This code makes us have req.body
 app.use((req, res, next) => {
   res.locals.data = {}
   next()
@@ -18,6 +17,8 @@ db.once('open', () => {
   console.log('connected to MongoDB Atlas')
 })
 /* Start Middleware */
+app.use(express.urlencoded({ extended: true })) // Creates req.body
+app.use(express.json())
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use('/fruits', require('./controllers/routeController'))
