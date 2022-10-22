@@ -19,6 +19,7 @@ a {
   color: lightblue;
   text-decoration: none;
   text-shadow: 1px 1px 1px black;
+  text-align: center;
   font-size: 1.5em;
   padding: 0.2em;
   background: lightgreen;
@@ -35,6 +36,7 @@ ul {
 }
 
 li {
+  text-align: center;
   display: flex;
   flex-direction: column;
   list-style: none;
