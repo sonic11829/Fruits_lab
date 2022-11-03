@@ -7,6 +7,18 @@ const dataController = require('./dataController')
 const viewController = require('./viewController')
 const apiController = require('./apiController')
 
+////////////////////////////////////////
+// Router Middleware
+////////////////////////////////////////
+// Authorization Middleware
+router.use((req, res, next) => {
+    if (req.session.loggedIn) {
+      next()
+    } else {
+      res.redirect("/user/login")
+    }
+  })
+
 // API Routes
 // Index
 router.get('/api', dataController.index, apiController.index)

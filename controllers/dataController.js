@@ -1,36 +1,37 @@
-const Fruit = require('../models/fruit.js');
+const Fruit = require('../models/fruit.js')
 
 const dataController = {
-  index(req, res, next){
-    Fruit.find({}, (err, allFruits) => {
-      if(err){
+  index (req, res, next) {
+    Fruit.find({ username: req.session.username }, (err, allFruits) => {
+      if (err) {
         res.status(404).send({
           msg: err.message
         })
-      }else {
+      } else {
         res.locals.data.fruits = allFruits
         next()
       }
-    });
+    })
   },
-  create(req, res, next){
-    req.body.readyToEat = req.body.readyToEat === "on" ? true : false;
+  create (req, res, next) {
+    req.body.readyToEat = req.body.readyToEat === 'on'
+    req.body.username = req.session.username
     // Use Model to create Fruit Document
     Fruit.create(req.body, (err, createdFruit) => {
-        // Once created - respond to client
-        if(err){
-          res.status(404).send({
-            msg: err.message
-          })
-        }else {
-          res.locals.data.fruit = createdFruit
-          next()
-        }
-    });
+      // Once created - respond to client
+      if (err) {
+        res.status(404).send({
+          msg: err.message
+        })
+      } else {
+        res.locals.data.fruit = createdFruit
+        next()
+      }
+    })
   },
-  show(req, res, next){
-    Fruit.findById(req.params.id, (err, foundFruit)=>{
-      if(err){
+  show (req, res, next) {
+    Fruit.findById(req.params.id, (err, foundFruit) => {
+      if (err) {
         res.status(404).send({
           msg: err.message
         })
@@ -40,10 +41,10 @@ const dataController = {
       }
     })
   },
-  update(req, res, next){
-    req.body.readyToEat = req.body.readyToEat === "on" ? true : false;
+  update (req, res, next) {
+    req.body.readyToEat = req.body.readyToEat === 'on'
     Fruit.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedFruit) => {
-      if(err){
+      if (err) {
         res.status(404).send({
           msg: err.message
         })
@@ -51,11 +52,11 @@ const dataController = {
         res.locals.data.fruit = updatedFruit
         next()
       }
-    });
+    })
   },
-  destroy(req, res, next){
+  destroy (req, res, next) {
     Fruit.findByIdAndRemove(req.params.id, (err, fruit) => {
-      if(err){
+      if (err) {
         res.status(404).send({
           msg: err.message
         })
@@ -63,7 +64,7 @@ const dataController = {
         res.locals.data.fruit = fruit
         next()
       }
-    });
+    })
   }
 }
 
